@@ -1,7 +1,7 @@
-require 'pry'
+
 class Doctor
 
-  attr_accessor :name
+  attr_reader :name
 
   @@all = [] # hold all doctors
 
@@ -18,13 +18,12 @@ class Doctor
     return Appointment.all.select {|appointment| appointment.doctor == self}
   end
 
-  def new_appointment(date, patient)
+  def new_appointment(patient, date)
     return Appointment.new(date, patient, self)
   end
 
   def patients
-    binding.pry
-    return appointments.map {|appointment| appointment.patient}
+    return appointments.map {|appointment| appointment.patient}.uniq
   end
 
   def self.all
